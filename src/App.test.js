@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, queryByText } from '@testing-library/react';
 import { App } from './App';
 
 /**
@@ -61,8 +61,15 @@ test('theme button should toggle styles', () => {
  * (getByText will throw an error if it is not rendered)
  */
 test('hidden button should toggle hidden content', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+  render(<App />)
+
+  const hiddenContent = screen.queryByText("This content is hidden by default")
+  const showHideButton = screen.getByText((text) => text.includes("hidden content"))
+  expect(hiddenContent).not.toBeInTheDocument()
+  
+  fireEvent.click(showHideButton)
+  const visibleContent = screen.queryByText('this content is hidden by default')
+  expect(visibleContent).toBeInTheDocument()
 });
 
 
