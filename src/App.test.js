@@ -14,8 +14,14 @@ test('App should render', () => {
 });
 
 test('Button should render', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+  render(<App />)
+  const buttons = screen.getAllByRole('button')
+  const themeButton = screen.getByText((text) => text.startsWith("Current theme:"))
+  const showHideButton = screen.getByText((text) => text.includes("hidden content"))
+
+  expect(buttons).toHaveLength(2)
+  expect(themeButton).toBeInTheDocument()
+  expect(showHideButton).toBeInTheDocument()
 });
 
 /**
