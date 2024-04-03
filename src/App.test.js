@@ -33,18 +33,22 @@ test('theme button should update button text', () => {
 
   const themeButton = screen.getByText((text) => text.startsWith("Current theme:"))
 
+  expect(themeButton).not.toHaveTextContent("Current theme: dark");
   fireEvent.click(themeButton)
-
-
-  expect(themeButton).toHaveTextContent("Current theme: dark");
+  expect(themeButton).toHaveTextContent("Current theme: dark")
 });
 
 // BONUS
 // hint: there is a `.toHaveStyle` method.
 // e.g.: expect(element).toHaveStyle('color: #FFF');
 test('theme button should toggle styles', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+  render(<App/>)
+  const body = document.body
+  const themeButton = screen.getByText((text) => text.startsWith("Current theme:"))
+  expect(body).toHaveStyle('background-color: #fff');
+
+  fireEvent.click(themeButton)
+  expect(body).not.toHaveStyle('background-color: #fff')
 });
 
 /**
